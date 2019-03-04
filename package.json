@@ -1,0 +1,31 @@
+{
+  "name": "tokrit-backend",
+  "version": "1.0.0",
+  "description": "3MAR2019 HACKDAY",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tokrit/tokrit-backend.git"
+  },
+  "author": "TKI BACK-END",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tokrit/tokrit-backend/issues"
+  },
+  "homepage": "https://github.com/tokrit/tokrit-backend#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "express-mysql-session": "^2.1.0",
+    "express-session": "^1.15.6",
+    "mysql": "^2.16.0",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "pbkdf2-password": "^1.2.1",
+    "supervisor": "^0.12.0"
+  }
+}

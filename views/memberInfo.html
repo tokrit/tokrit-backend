@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <title></title>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        var data = "<%= member %>";
+        //data = data.replace(/&#34;/g, '\"');
+        data = JSON.parse(data.replace(/&#34;/g, '\"'));
+        $(document).attr("title", "Welcome ! " + data[0].authId);
+        $("#authId").html(data[0].authId);
+        $("#password").html(data[0].password);
+        $("#salt").html(data[0].salt);
+        $("#firstName").html(data[0].firstName);
+
+        // for(var i = 0 ; i < data.length ; i++){
+        //   $("#courseList").append("<li><a href=\'/view/" + data[i].username + "\'>"+ data[i].address + data[i].email + "</a></li>");
+        // }
+      });
+    </script>
+  </head>
+  <body>
+    <p id="authId"></p>
+    <p id="password"></p>
+    <p id="salt"></p>
+    <p id="firstName"></p>
+
+  </body>
+</html>

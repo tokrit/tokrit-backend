@@ -70,6 +70,7 @@ passport.use(new LocalStrategy(
         return done('There is no user.');
       }
       var user = results[0];
+      salt = user.salt;
       return hasher({password:pwd, salt:user.salt}, function(err, pass, salt, hash){
         if(hash === user.password){
           console.log('success');
@@ -150,13 +151,26 @@ app.post('/member', function (req, res) {
 
 app.put('/member/update', (req, res) => {
   let authId = req.session.passport.user;
-  console.log(req.body)
   let firstName = req.body.firstName;
   let lastName = req.body.lastName;
-  console.log("firstName: %s, lastName: %s", firstName, lastName)
-  let sql = `UPDATE member SET firstName = ?, lastName = ? where authId = ?`
-  conn.query(sql, [firstName, lastName, authId], (err) => {
-    if(err) throw err
+  let sql = 'SELECT * FROM member WHERE authId=?'
+  conn.query(sql, [authId], (err, results) => {
+    if (err) throw err;
+    let user = results[0]
+    let rawPassword = { password: req.body.password };
+    let salt = user.salt;
+    let encryptedPassword = hasher(rawPassword, (err, pass, salt, hash) => {
+      password = hash;
+    });
+    let isAdmin = req.body.isAdmin;
+    sql = `UPDATE member SET password = ?, firstName = ?, lastName = ?, isAdmin = ? where authId = ?`
+    conn.query(sql, [encryptedPassword, firstName, lastName, isAdmin, authId], (err) => {
+      if (err) {
+        console.log(err)
+        res.status(500);
+      }
+      res.redirect('/member')
+    })
   })
 });
 

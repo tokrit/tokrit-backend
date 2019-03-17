@@ -15,7 +15,7 @@ app.use(express.static('public'));
 var mysql = require('mysql');
 var conn = mysql.createConnection({
   host: 'localhost',
-  user: 'root',
+  user: 'tokrit',
   password: '111111',
   database: 'tokrit'
 });
@@ -28,7 +28,7 @@ app.use(session({
     store: new MySQLStore({
       host: 'localhost',
       port: 3306,
-      user: 'root',
+      user: 'tokrit',
       password: '111111',
       database: 'tokrit'
     })
@@ -147,6 +147,18 @@ app.post('/member', function (req, res) {
     });
   });
 })
+
+app.put('/member/update', (req, res) => {
+  let authId = req.session.passport.user;
+  console.log(req.body)
+  let firstName = req.body.firstName;
+  let lastName = req.body.lastName;
+  console.log("firstName: %s, lastName: %s", firstName, lastName)
+  let sql = `UPDATE member SET firstName = ?, lastName = ? where authId = ?`
+  conn.query(sql, [firstName, lastName, authId], (err) => {
+    if(err) throw err
+  })
+});
 
 app.put('/member', function (req, res) {
   res.send('Hello put!');

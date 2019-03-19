@@ -169,7 +169,7 @@ app.put('/member/update', (req, res) => {
         console.log(err)
         res.status(500);
       }
-      res.redirect('/member')
+      res.redirect(200, '/member')
     })
   })
 });

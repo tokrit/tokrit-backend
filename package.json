@@ -17,7 +17,6 @@
   },
   "homepage": "https://github.com/tokrit/tokrit-backend#readme",
   "dependencies": {
-    "all": "0.0.0",
     "body-parser": "^1.18.3",
     "connect-flash": "^0.1.1",
     "ejs": "^2.6.1",

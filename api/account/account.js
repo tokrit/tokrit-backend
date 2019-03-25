@@ -49,11 +49,10 @@ passport.serializeUser(
 
 passport.deserializeUser(
   (id, done) => {
-    console.log(id)
     console.log('deserializeUser')
     tokritDb.query('SELECT * from accounts where id = ?', [id], 
       (error, user) => {
-        done(error, user[0])
+        done(error, user)
       }
     )
   }
@@ -65,9 +64,6 @@ passport.use('local-signup', new LocalStrategy({
   passwordField: 'password',
   passReqToCallback: true
   }, (request, email, password, done) => {
-    // TODO:
-    // if input is not email, throw error
-    // else run statements below
     
     if (!validateEmail(email)) {
       return done(null, false)

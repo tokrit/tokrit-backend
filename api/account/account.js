@@ -10,7 +10,7 @@ const router = express.Router();
 const options = {
   host: 'localhost',
   port: 3306,
-  user: 'root',
+  user: 'tokrit',
   password: '111111',
   database: 'tokrit'
 }
@@ -18,7 +18,7 @@ const sessionStore = new MySQLStore(options);
 const mysql = require('mysql');
 const tokritDb = mysql.createConnection({
   host: 'localhost',
-  user: 'root',
+  user: 'tokrit',
   password: '111111',
   database: 'tokrit'
 })

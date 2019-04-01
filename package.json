@@ -1,0 +1,35 @@
+{
+  "name": "tokrit-backend",
+  "version": "1.0.0",
+  "description": "tokrit backend project",
+  "main": "index.js",
+  "dependencies": {
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "express-mysql-session": "^2.1.0",
+    "express-session": "^1.15.6",
+    "mysql": "^2.16.0",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "pbkdf2-password": "^1.2.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tokrit/tokrit-backend.git"
+  },
+  "keywords": [
+    "node",
+    "heroku",
+    "express"
+  ],
+  "author": "tokrit backend team",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tokrit/tokrit-backend/issues"
+  },
+  "homepage": "https://github.com/tokrit/tokrit-backend#readme"
+}

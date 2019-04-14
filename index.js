@@ -28,8 +28,8 @@ app.set('view engine', 'html');
 let accountController = require('./api/account/account');
 // let announcementController = require('./api/announcement/announcement');
 
-app.use('api/v1/account', accountController);
-// app.use('api/v1/announcement', announcementController);
+app.use('/api/v1/account', accountController);
+// app.use('/api/v1/announcement', announcementController);
 
 //=======================================================
 // HOME

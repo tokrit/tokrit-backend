@@ -8,10 +8,10 @@
     "express": "^4.16.4",
     "express-mysql-session": "^2.1.0",
     "express-session": "^1.15.6",
-    "mysql": "^2.16.0",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
-    "pbkdf2-password": "^1.2.1"
+    "pbkdf2-password": "^1.2.1",
+    "pg": "^7.9.0"
   },
   "devDependencies": {},
   "scripts": {

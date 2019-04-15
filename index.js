@@ -25,10 +25,10 @@ app.set('view engine', 'html');
 //======================================================
 // Controller Bindings
 //======================================================
-let accountController = require('./api/account/account');
+let userController = require('./api/user/user');
 // let announcementController = require('./api/announcement/announcement');
 
-app.use('/api/v1/account', accountController);
+app.use('/api/v1/user', userController);
 // app.use('/api/v1/announcement', announcementController);
 
 //=======================================================

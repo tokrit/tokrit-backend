@@ -10,7 +10,9 @@
     "express-session": "^1.15.6",
     "mysql": "^2.16.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "nodemon": "^1.18.11"
+  },
   "scripts": {
     "start": "node index.js"
   },

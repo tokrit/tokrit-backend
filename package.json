@@ -4,6 +4,7 @@
   "description": "tokrit backend project",
   "main": "index.js",
   "dependencies": {
+    "body-parser": "^1.18.3",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
     "express-mysql-session": "^2.1.0",

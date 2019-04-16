@@ -5,10 +5,13 @@
   "main": "index.js",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "dotenv": "^7.0.0",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
     "express-mysql-session": "^2.1.0",
-    "express-session": "^1.15.6",
+    "express-session": "^1.16.1",
+    "google-auth-library": "^3.1.2",
+    "memorystore": "^1.6.1",
     "mysql": "^2.16.0"
   },
   "devDependencies": {

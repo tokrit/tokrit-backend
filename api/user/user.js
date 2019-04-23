@@ -56,7 +56,7 @@ router.post('/login', async (request, response) => {
 });
 
 router.patch('/update', auth, async (request, response) => {
-    let user_id = JSON.parse(sessionStore.store.get(request.sessionID)).user_id;
+    const user_id = JSON.parse(sessionStore.store.get(request.sessionID)).user_id;
     try {
         await updateUser(user_id, request.body);
         const user = await findUser(user_id);
@@ -76,6 +76,16 @@ router.get('/logout', auth, async (request, response) => {
         response.redirect('../');
     });
 });
+
+router.get('/delete', auth, async (request, response) => {
+    const user_id = await JSON.parse(sessionStore.store.get(req.sessionID)).user_id;
+    try {
+        await deleteUser(user_id);
+        response.redirect('../');
+    } catch (error) {
+        response.status(500)
+    }
+})
 
 const verifyGoogleIdToken = async (token) => {
     try {
@@ -135,7 +145,11 @@ const findUser = (id) => {
 }
 
 const updateUser = ({ id, email, profile_picture_url, first_name, last_name, user_role} ) => {
-    db.query(`UPDATE members SET email = ${email}, profile_picture_url = ${profile_picture_url}, first_name = ${first_name}, last_name = ${last_name}, user_role = ${user_role}`);        
+    db.query(`UPDATE users SET email = ${email}, profile_picture_url = ${profile_picture_url}, first_name = ${first_name}, last_name = ${last_name}, user_role = ${user_role}`);        
+}
+
+const deleteUser = (user_id) => {
+    db.query(`DELETE FROM users WHERE user_id = ${user_id}`);
 }
 
 const saveSession = (request, user) => {

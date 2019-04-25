@@ -47,7 +47,7 @@ router.post('/login', async (request, response) => {
             saveUser(user);
         }
 
-        await saveSession(request, user);
+        await saveSession(request);
         response.send(user);
     } catch (error) {
         console.log('google id token verification failed');
@@ -56,7 +56,7 @@ router.post('/login', async (request, response) => {
 });
 
 router.patch('/update', auth, async (request, response) => {
-    const user_id = JSON.parse(sessionStore.store.get(request.sessionID)).user_id;
+    const user_id = request.user.user_id;
     try {
         await updateUser(user_id, request.body);
         const user = await findUser(user_id);
@@ -78,7 +78,7 @@ router.get('/logout', auth, async (request, response) => {
 });
 
 router.get('/delete', auth, async (request, response) => {
-    const user_id = await JSON.parse(sessionStore.store.get(req.sessionID)).user_id;
+    const user_id = request.user.user_id;
     try {
         await deleteUser(user_id);
         response.redirect('../');
@@ -152,7 +152,7 @@ const deleteUser = (user_id) => {
     db.query(`DELETE FROM users WHERE user_id = ${user_id}`);
 }
 
-const saveSession = (request, user) => {
+const saveSession = (request) => {
     request.session.user_id = user.id;
     request.session.email = user.email;
     request.session.profile_picture_url = user.profile_picture_url;
@@ -161,6 +161,16 @@ const saveSession = (request, user) => {
     request.session.created_at = user.created_at;
     request.session.user_role = user.user_role;
     request.session.save();
+}
+
+const auth = async (request, response, next) => {
+    try {
+        const user = await JSON.parse(sessionStore.store.get(req.sessionID));
+        request.user = user;        
+        next();
+    } catch (error) {
+        resizeBy.status(401).send({ error: 'Authentication failed' });
+    }
 }
 
 module.exports = router;

@@ -43,7 +43,7 @@ router.post('/login', async (request, response) => {
     try {
         const payload = await verifyGoogleIdToken(idToken);
         const user = createUser(payload);
-        if (isNewUser(user.id)) {
+        if (findUser(user.id)) {
             saveUser(user);
         }
 
@@ -100,16 +100,6 @@ const verifyGoogleIdToken = async (token) => {
     }
 }
 
-const isNewUser = (user_id, response) => {
-    db.query(`SELECT id FROM users where id = ${user_id}`, (error, user) => {
-        if (error) {
-            return response.status(500);
-        }
-
-        return user ? false : true;
-    });
-}
-
 const createUser = (payload) => {
     user = new Object();    
     user.id = payload['sub'];
@@ -137,7 +127,7 @@ const findUser = (id) => {
         }
 
         if (!result) {
-            throw new Error('Unable to find the reulst');
+            return false;
         }
 
         return result;

@@ -1,25 +1,28 @@
 'use strict';
 
-require('dotenv').config;
+require('dotenv').config({ path: __dirname + '/../../.env' });
 const { OAuth2Client } = require('google-auth-library');
 const client = new OAuth2Client(process.env.CLIENT_ID);
 
-const verifyGoogleIdToken = async (token) => {
+async function verify(token) {
     try {
         const ticket = await client.verifyIdToken({
             idToken: token,
-            audience: CLIENT_ID
+            audience: process.env.CLIENT_ID
         });
 
-        return payload = ticket.getPayload();
+        console.log('successfully verified id token');
+        const payload = ticket.getPayload();
+        return payload;
+        
     } catch (error) {
-        response.status(500).send(error);
+        console.log(error);
     }
 }
 
-const createUser = (payload) => {
-    user = new Object();
-    user.id = payload['sub'];
+const newUser = (payload) => {
+    const user = new Object();
+    user.uid = payload['sub'];
     if (payload['email_verified']) {
         user.email = payload['email'];
     }
@@ -27,12 +30,12 @@ const createUser = (payload) => {
     user.first_name = payload['given_name'];
     user.last_name = payload['family_name'];
     user.created_at = Date.now();
-    user.user_role = 'user';
+    user.role = 'user';
 
     return user;
 }
 
 module.exports = {
-    verifyGoogleIdToken : verifyGoogleIdToken,
-    createUser : createUser
+    verify: verify,
+    newUser : newUser
 }
